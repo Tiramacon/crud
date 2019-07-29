@@ -28,4 +28,8 @@ router.post('/students/add', function (req, res) {
 	});
 });
 
+router.get('/students/edit', function (req, res) {
+	
+});
+
 module.exports = router;
