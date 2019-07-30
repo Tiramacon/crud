@@ -29,7 +29,36 @@ router.post('/students/add', function (req, res) {
 });
 
 router.get('/students/edit', function (req, res) {
-	
+	let stuId = parseInt(req.query.id);
+
+	student.findById(stuId, function (err, student) {
+		if (err) {
+			return res.status(500).send('Not Found');
+		}
+		res.render('edit.html', {
+			student: student
+		});
+	});
+});
+
+router.post('/students/edit', function (req, res) {
+	student.updateById(req.body, function (err) {
+		if (err) {
+			return res.status(500).send('Not Found');
+		}
+
+		res.redirect('/');
+	})
+});
+
+router.get('/students/delete', function (req, res) {
+	student.deleteById(req.query.id, function (err) {
+		if (err) {
+			return res.status(500).send('Not Found');
+		}
+
+		res.redirect('/');
+	});
 });
 
 module.exports = router;
