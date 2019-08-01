@@ -20,7 +20,14 @@ router.get('/students/add', function (req, res) {
 });
 
 router.post('/students/add', function (req, res) {
-	student.save(req.body, function (err) {
+	// student.save(req.body, function (err) {
+	// 	if (err) {
+	// 		return res.status(500).send('Not Found');
+	// 	}
+	// 	res.redirect('/');
+	// });
+
+	new student(req.body).save(function (err) {
 		if (err) {
 			return res.status(500).send('Not Found');
 		}
@@ -31,7 +38,16 @@ router.post('/students/add', function (req, res) {
 router.get('/students/edit', function (req, res) {
 	let stuId = parseInt(req.query.id);
 
-	student.findById(stuId, function (err, student) {
+	// student.findById(stuId, function (err, student) {
+	// 	if (err) {
+	// 		return res.status(500).send('Not Found');
+	// 	}
+	// 	res.render('edit.html', {
+	// 		student: student
+	// 	});
+	// });
+
+	student.findById(req.query.id.replace(/"/g, ''), function (err, student) {
 		if (err) {
 			return res.status(500).send('Not Found');
 		}
@@ -42,7 +58,16 @@ router.get('/students/edit', function (req, res) {
 });
 
 router.post('/students/edit', function (req, res) {
-	student.updateById(req.body, function (err) {
+	// student.updateById(req.body, function (err) {
+	// 	if (err) {
+	// 		return res.status(500).send('Not Found');
+	// 	}
+
+	// 	res.redirect('/');
+	// })
+
+	let id = req.body.id.replace(/"/g, '');
+	student.findByIdAndUpdate(id, req.body, function (err) {
 		if (err) {
 			return res.status(500).send('Not Found');
 		}
@@ -52,7 +77,16 @@ router.post('/students/edit', function (req, res) {
 });
 
 router.get('/students/delete', function (req, res) {
-	student.deleteById(req.query.id, function (err) {
+	// student.deleteById(req.query.id, function (err) {
+	// 	if (err) {
+	// 		return res.status(500).send('Not Found');
+	// 	}
+
+	// 	res.redirect('/');
+	// });
+
+	let id = req.query.id.replace(/"/g, '');
+	student.findByIdAndRemove(id, function (err) {
 		if (err) {
 			return res.status(500).send('Not Found');
 		}

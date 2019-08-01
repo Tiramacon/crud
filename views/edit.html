@@ -12,7 +12,7 @@
   <div class="container">
     <h2 class="sub-header">编辑学生<a class="pull-right btn btn-primary btn-sm" href="/">返回</a></h2>
     <form action="/students/edit" method="post">
-      <input type="hidden" name="id" value="{{ student.id }}">
+      <input type="hidden" name="id" value="{{ student._id }}">
       <div class="form-group">
         <label for="">姓名</label>
         <input type="text" class="form-control" id="" name="name" required minlength="2" maxlength="10" value="{{ student.name }}">
